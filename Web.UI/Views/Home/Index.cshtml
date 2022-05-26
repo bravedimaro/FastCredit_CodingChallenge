@@ -1,0 +1,193 @@
+﻿
+@model Web.Domain.Helpers.UsersRep
+<style>
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0 solid transparent;
+        border-radius: 0;
+    }
+
+    .btn-circle.btn-lg, .btn-group-lg > .btn-circle.btn {
+        width: 50px;
+        height: 50px;
+        padding: 14px 15px;
+        font-size: 18px;
+        line-height: 23px;
+    }
+
+    .text-muted {
+        color: #8898aa !important;
+    }
+
+    [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+        cursor: pointer;
+    }
+
+    .btn-circle {
+        border-radius: 100%;
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+    }
+
+    .user-table tbody tr .category-select {
+        max-width: 150px;
+        border-radius: 20px;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-uppercase mb-0">Manage Users</h5>
+                   
+                </div>
+                <div class="table-responsive">
+                    <table class="table no-wrap user-table mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">gender</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">Role</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">Dob</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">nationality</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">photo</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">Manage</th>
+                            </tr>
+                        </thead>
+                        @if (Model != null)
+                        {
+                            @foreach (var item in Model.users)
+                            {
+                                string img = $"data:image/png;base64,{item.photo}";
+                                <tr>
+                                    <td><input type="checkbox" name="chk" value="@item.Id" class="all_id"></td>
+                                    <td>
+                                        <h5 class="font-medium mb-0"> @item.FirstName.Trim()</h5>
+                                        <span class="text-muted">@item.LastName.Trim()</span>
+
+                                    </td>
+                                    <td>
+                                        <span class="text-muted">@item.Email.Trim()</span><br>
+
+                                    </td>
+                                    <td>
+                                        <span class="text-muted">@item.gender.Trim()</span><br>
+
+                                    </td>
+                                    <td>
+
+                                        <span class="text-muted">
+                                            @item.Role.ToString()
+
+                                        </span>
+
+                                    </td>
+                                    <td>
+
+                                        <span class="text-muted">
+                                            @item.dob.Trim()
+
+                                        </span>
+
+                                    </td>
+                                    <td>
+
+                                        <span class="text-muted">
+                                            @item.nationality.Trim()
+
+                                        </span>
+
+                                    </td>
+                                    <td class="media-right">
+
+                                        <img src="@img" class="media-object" style="width:40px">
+                                    </td>
+                                    <td>
+
+                                        <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2 delete" id="@item.Id"><i class="fa fa-trash"></i> </button>
+                                        <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2 edit" id="@item.Id"><i class="fa fa-edit"></i> </button>
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal to Add New User -->
+<div class="modal fade" id="NewUserModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <form enctype="multipart/form-data" id="cupForm">
+                    <div class="form-group">
+                        <label for="email">firstName:</label>
+                        <input type="text" class="form-control" id="FirstName" name="FirstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">lastName:</label>
+                        <input type="text" class="form-control" id="LastName" name="LastName">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input type="email" class="form-control" id="Email" name="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Gender:</label>
+                        <select id="Gender" name="Gender" class="form-control">
+                            <option selected>Choose...</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Role:</label>
+                        <select id="Role" name="Role" class="form-control">
+                            <option selected>Choose...</option>
+                            <option value="0">Admin</option>
+                            <option value="1">Customer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Date of Birth:</label>
+                        <input type="date" class="form-control" id="Dob" name="Dob">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Nationality:</label>
+                        <input type="text" class="form-control" id="Nationality" name="Nationality">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Photo:</label>
+                    <input type="file" class="form-control" id="photo" name="photo">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default add_users_btn" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
