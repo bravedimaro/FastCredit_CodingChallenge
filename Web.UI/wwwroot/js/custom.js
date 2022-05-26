@@ -56,7 +56,7 @@ $(".delete_all").on("click", function () {
         });
         const str = String(allIDs);
         var settings = {
-            "url": "https://api.sataide.com/api/Users/DeleteBySelected/"+str,
+            "url": "../api/Users/DeleteBySelected/"+str,
             "method": "POST",
             headers: {
                 "Authorization": "Bearer" + " " + "" + GetSession + ""
@@ -83,7 +83,7 @@ $(".delete_all").on("click", function () {
 $(".activate_session").on("click", function () {
     $(this).removeAttr("href");
     var settings = {
-        "url": "https://api.sataide.com/api/Auth/Token/juYSPnPCn4r0TmvhS4DOq6YdfAk0KkLsSIXNBlddKj65q0_MV1ThB1Mk44pdjLMx",
+        "url": "../api/Auth/Token/juYSPnPCn4r0TmvhS4DOq6YdfAk0KkLsSIXNBlddKj65q0_MV1ThB1Mk44pdjLMx",
         "method": "POST",
         "timeout": 0,
     };
@@ -151,7 +151,7 @@ $("#cupForm").on('submit', function (e) {
     e.preventDefault();
     $.ajax({
         type: 'POST',
-        url: "https://api.sataide.com/api/Users/create",
+        url: "../api/Users/create",
         headers: {
             "Authorization": "Bearer"+" "+""+GetSession+"" 
         },
@@ -201,7 +201,7 @@ $(document).on("click",".delete", function () {
     if (resp) {
         //post to delete endpoint
         var settings = {
-            "url": "https://api.sataide.com/api/Users/Delete/"+id,
+            "url": "../api/Users/Delete/"+id,
             "method": "POST",
             headers: {
                 "Authorization": "Bearer" + " " + "" + GetSession + ""

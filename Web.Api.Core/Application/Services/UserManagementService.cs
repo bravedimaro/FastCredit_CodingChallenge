@@ -168,7 +168,7 @@ namespace Web.Api.Core.Application.Services
                 if (deleteRespCounts.Any())
                 {
                     responseHandler.ResponseMessage = "Seleted Users Deleted Successfully";
-                    responseHandler.ResponseCode = ResponseCodes.SUCCESS;.
+                    responseHandler.ResponseCode = ResponseCodes.SUCCESS;
                      _logger.Info($"[FastCredit_CodingChallenge][DeleteBySelected][Response] => {JsonConvert.SerializeObject(responseHandler)}");
                     return responseHandler;
                    
