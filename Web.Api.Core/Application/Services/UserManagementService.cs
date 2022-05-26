@@ -175,6 +175,7 @@ namespace Web.Api.Core.Application.Services
                 {
                     responseHandler.ResponseMessage = "Nothing to delete";
                     responseHandler.ResponseCode = ResponseCodes.ERROR;
+                    _logger.Info($"[FastCredit_CodingChallenge][DeleteBySelected][Response] => {JsonConvert.SerializeObject(responseHandler)}");
                     return responseHandler;
                 }
             }
